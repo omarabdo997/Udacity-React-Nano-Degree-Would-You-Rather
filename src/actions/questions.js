@@ -1,7 +1,9 @@
-import {_saveQuestion, _getQuestions} from '../utils/_DATA'
+import {_saveQuestion, _getQuestions, _saveQuestionAnswer} from '../utils/_DATA'
+import {setLoading} from './loading'
 
 export const ADD_QUESTION = 'ADD_QUESTION'
 export const RECIEVE_QUESTIONS = 'RECIEVE_QUESTIONS'
+export const ANSWER_QUESTION = 'ANSWER_QUESTION'
 
 const addQuestion = (question) => ({
     type: ADD_QUESTION,
@@ -11,30 +13,44 @@ const recieveQuestions = (questions) => ({
     type: RECIEVE_QUESTIONS,
     questions
 })
+const answerQuestion = (qid, user, answer) => ({
+    type: ANSWER_QUESTION,
+    qid,
+    user,
+    answer
+})
 
 export const handleAddQuestion = (question) => {
     return (dispatch) => {
+        dispatch(setLoading(true))
         _saveQuestion(question)
             .then((questionFormated) => {
                 dispatch(addQuestion(questionFormated))
+                dispatch(setLoading(false))
             })
+    }
+}
+export const handleAnswerQuestion = (qid, user, answer) => {
+    return(dispatch) => {
+        // dispatch(setLoading(true))
+        dispatch(answerQuestion(qid, user, answer))
+        // dispatch(setLoading(false))
+        // const data = {
+        //     authedUser: user,
+        //     qid,
+        //     answer
+
+        // }
+        // _saveQuestionAnswer(data)
+        //     .then(() => {
+        //         console.log('done')
+        //     })
     }
 }
 export const handleRecieveQuestions = () => {
     return (dispatch, getState) => {
-        // const {authedUser} = getState()
-        const authedUser = {
-            id: 'sarahedo',
-            name: 'Sarah Edo',
-            avatarURL: "https://tylermcginnis.com/would-you-rather/sarah.jpg",
-            answers: {
-              "8xf0y6ziyjabvozdd253nd": 'optionOne',
-              "6ni6ok3ym7mf1p33lnez": 'optionTwo',
-              "am8ehyc8byjqgar0jgpub9": 'optionTwo',
-              "loxhs1bqm25b708cmbf3g": 'optionTwo'
-            },
-            questions: ['8xf0y6ziyjabvozdd253nd', 'am8ehyc8byjqgar0jgpub9']
-          }
+        dispatch(setLoading(true))
+        const {authedUser} = getState()
         _getQuestions()
             .then((questions) => {
                 let answeredQuestions= {}
@@ -48,6 +64,7 @@ export const handleRecieveQuestions = () => {
                 }
                 const formatedQuestions = {answeredQuestions, unansweredQuestions}
                 dispatch(recieveQuestions(formatedQuestions)) 
+                dispatch(setLoading(false))
             })
     }
 }

@@ -11,6 +11,24 @@
   
   
 }
+@keyframes pulse {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+.loading {
+  display: block;
+  width: 150px;
+  text-align: center;
+  margin: 200px auto; 
+}
+a:disabled {
+  color: black;
+}
+.link {
+  color: white;
+  text-decoration: none;
+}
+
 button:disabled{
   cursor: not-allowed;
 }
@@ -50,6 +68,7 @@ h3 {
   transition: all 0.3s;
   cursor: pointer;
 }
+
 input {
   outline: none;
 }
@@ -94,6 +113,8 @@ nav {
 }
 .nav-options {
   display: block;
+  margin-top: 25px;
+  margin-bottom: 25px;
   float: left;
 }
 .nav-options li{
@@ -131,9 +152,15 @@ nav {
   color: white;
   text-align: center;
   padding-top: 120px;
-  transition: all 0.3s;
+  /* transition: all 0.3s; */
+  animation-name: signin;
+  animation-duration: 1s;
   z-index: 5000;
   position: relative;
+}
+@keyframes signin {
+  from {top: -500px; opacity: 0;}
+  to {top: 0px; opacity: 1;}
 }
 .logo {
   width: 250px;
@@ -161,7 +188,7 @@ nav {
   background-color: white;
 }
 .signin-button {
-  display: block;
+  display: inline-block;
   margin: 40px auto;
   padding: 10px 20px;
   border-radius: 500px;
@@ -255,7 +282,8 @@ nav {
   border-radius: 30px;
   background-color: #271504;
   padding: 1%;
-
+  animation-name: pulse;
+  animation-duration: 0.5s;
   
 }
 .text-areas {
@@ -293,9 +321,11 @@ nav {
 }
 .text-areas {
   margin-bottom: 50px;
+  animation-name: puls;
+  animation-duration: 10s; 
 }
 .text-areas div {
-  cursor: pointer;
+  /* cursor: pointer; */
   text-align: center;
 }
 .new-question textarea:hover,
@@ -307,12 +337,25 @@ nav {
 .red-text-area {
   background-color: #e74c3c;
   position: relative;
-  
+  cursor: pointer;
+  animation-name: puls;
+  animation-duration: 10s;  
 }
+
 .blue-text-area {
   background-color: #3498db;
   position: relative;
+  cursor: pointer;
+  animation-name: puls;
+  animation-duration: 10s; 
 }
+.selected {
+  position: relative;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0));
+  cursor: default;
+}
+
+
 
 /* ------------------ */
 /* Questions */
@@ -322,6 +365,8 @@ nav {
   margin: 40px auto;
   background-color: #271504;
   border-radius: 30px;
+  animation-name: pulse;
+  animation-duration: 0.5s;
   
 }
 
@@ -426,12 +471,14 @@ nav {
   max-width: 700px;
   margin: 40px auto;
   background-color: #271504;
-  /* height: 700px; */
+  animation-name: pulse;
+  animation-duration: 0.5s;
   border-radius: 30px;
 
 }
 .leader-board-item {
   padding: 30px;
+
 }
 .leader-board-item::after {
   content: "";

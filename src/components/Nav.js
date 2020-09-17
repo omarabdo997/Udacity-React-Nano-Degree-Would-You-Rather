@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {unauthUser} from '../actions/authedUser'
+import {Link} from 'react-router-dom'
  
 class Nav extends Component {
     handleClick = () => {
@@ -8,14 +9,14 @@ class Nav extends Component {
     }
     render() {
         const {authedUser} = this.props
-        console.log(authedUser.id)
         return (
             <nav>
                 <div className="nav-container">
                     <ul className="nav-options">
-                        <li className="button">Home</li>
-                        <li className="button">New Question</li>
-                        <li className="button">Leader Board</li>
+                        <Link className='button link' to='/'>Home</Link>
+                        <Link className='button link' to='/add'>New Question</Link>
+                        <Link className='button link' to='/leaderboard'>Leader Board</Link>
+
                     </ul>
                     {authedUser.id?
                         <ul className="nav-user">

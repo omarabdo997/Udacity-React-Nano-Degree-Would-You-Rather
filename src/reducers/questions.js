@@ -1,4 +1,4 @@
-import {ADD_QUESTION, RECIEVE_QUESTIONS} from '../actions/questions'
+import {ADD_QUESTION, RECIEVE_QUESTIONS, ANSWER_QUESTION} from '../actions/questions'
 
 const questions = (state={
     answeredQuestions: {},
@@ -18,6 +18,23 @@ const questions = (state={
                 answeredQuestions: action.questions.answeredQuestions,
                 unansweredQuestions: action.questions.unansweredQuestions
             }
+        case ANSWER_QUESTION:
+            let unansweredQuestions = {...state.unansweredQuestions};
+            let answeredQuestions = {...state.answeredQuestions};
+            let question
+            if (action.qid in unansweredQuestions) {
+                question = unansweredQuestions[action.qid]
+                delete unansweredQuestions[action.qid]
+            } else {
+                question = answeredQuestions[action.qid]
+            }
+            question[action.answer].votes.push(action.user)
+            answeredQuestions[action.qid]=question  
+            console.log('here now')          
+            return {
+                unansweredQuestions,
+                answeredQuestions
+            }    
 
 
 

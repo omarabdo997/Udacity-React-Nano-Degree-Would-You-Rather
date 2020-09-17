@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {handleAddQuestion} from '../actions/questions'
+import {handleRecieveUsers} from '../actions/users'
+import {withRouter} from 'react-router-dom'
 
 class NewQuestion extends Component {
     state = {
@@ -25,9 +27,11 @@ class NewQuestion extends Component {
         const question = {
             optionOneText,
             optionTwoText,
-            author: 'sarahedo'
+            author: this.props.authedUser.id
         }
         this.props.dispatch(handleAddQuestion(question))
+        this.props.dispatch(handleRecieveUsers())
+        this.props.history.push('/')
 
     }
     render() {
@@ -56,4 +60,4 @@ class NewQuestion extends Component {
 const stateToProps = ({authedUser}) => ({
     authedUser
 })
-export default connect (stateToProps)(NewQuestion)
+export default withRouter(connect (stateToProps)(NewQuestion))

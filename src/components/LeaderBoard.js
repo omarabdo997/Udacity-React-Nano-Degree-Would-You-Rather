@@ -1,22 +1,23 @@
 import React, {Component} from 'react'
 import LeaderBoardItem from './LeaderBoardItem'
+import {connect} from 'react-redux'
 
 class LeaderBoard extends Component {
+
     render() {
+        const {users} = this.props
         return (
             <div className="leader-board-container">
-                <LeaderBoardItem />
-                <div className="clear"></div>
-                <hr/>
-                <LeaderBoardItem />
-                <hr/>
-                <LeaderBoardItem />
-                <hr/>
-                <LeaderBoardItem />
-                <hr/>
-                <LeaderBoardItem />
+                {users.map((user) => (
+                    <LeaderBoardItem user={user}/>
+                ))}
             </div>
         )
     }
 }
-export default LeaderBoard;
+const stateToProps = ({users}) => ({
+    users: Object.keys(users).sort((a,b) => (
+        users[b].score -users[a].score
+    ))
+})
+export default connect (stateToProps)(LeaderBoard)

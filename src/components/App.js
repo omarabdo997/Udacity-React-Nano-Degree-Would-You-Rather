@@ -9,20 +9,38 @@ import QuestionData from './QuestionData'
 import {authUser} from '../actions/authedUser'
 import {handleRecieveUsers} from '../actions/users'
 import {handleRecieveQuestions} from '../actions/questions'
+import Loading from './Loading'
+import {Route} from 'react-router-dom'
+
 
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleRecieveUsers())
-    this.props.dispatch(handleRecieveQuestions())
   }
   render() {
+    const {authedUser, loading} = this.props
     return (
       <Fragment>
         <Nav />
         <main>
+          {loading?<Loading/>:!authedUser.id?<SignIn />:
+            <div>
+              <Route path="/" exact>
+                <Home /> 
+              </Route>
+              <Route path="/add" exact>
+                <NewQuestion /> 
+              </Route>
+              <Route path="/leaderboard" exact>
+                <LeaderBoard /> 
+              </Route>
+              <Route path="/questions/:question_id" exact  component={QuestionData}/>
+            </div>
+          }
+          
           {/* <SignIn /> */}
           {/* <NewQuestion /> */}
-          <Home />
+          {/* <Home /> */}
           {/* <LeaderBoard /> */}
           {/* <QuestionData /> */}
         </main>
@@ -32,4 +50,4 @@ class App extends Component {
   } 
 }
 
-export default connect()(App)
+export default connect(({authedUser, loading}) => ({authedUser, loading}))(App)

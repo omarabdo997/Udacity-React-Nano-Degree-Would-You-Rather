@@ -1,24 +1,35 @@
 import React, {Component} from 'react'
+import {Fragment} from 'react'
+import {connect} from 'react-redux'
 
 class LeaderBoardItem extends Component {
     render() {
+        const {users, id} = this.props
+        const user = users[id]
         return (
-            <div className="leader-board-item">
-                <div className="user-data">
-                    <img src="https://tylermcginnis.com/would-you-rather/tyler.jpg" alt=""/>
-                    <p className="name-l">Omar</p>
+            <Fragment>
+                <div className="leader-board-item">
+                    <div className="user-data">
+                        <img src={user.avatarURL} alt=""/>
+                        <p className="name-l">{user.name.split(" ")[0]}</p>
+                    </div>
+                    <div className="answered">
+                        <p>Answered Questions: </p><span>{Object.keys(user.answers).length}</span>
+                        <p>Asked Questions: </p><span>{user.questions.length}</span>
+                    </div>
+                    <div className="score">
+                        <p>&#9733;</p>
+                        <span>{user.score}</span>
+                    </div>
+                    
                 </div>
-                <div className="answered">
-                    <p>Answered Questions: </p><span>50</span>
-                    <p>UnAnswered Questions: </p><span>20</span>
-                </div>
-                <div className="score">
-                    <p>&#9733;</p>
-                    <span>7.6</span>
-                </div>
-            </div>
+                <hr/>
+            </Fragment>
         )
     }
 }
-export default LeaderBoardItem;
-// &#9733;
+const mapStateToProps = ({users}, {user}) => ({
+    users,
+    id:user
+})
+export default connect(mapStateToProps)(LeaderBoardItem);

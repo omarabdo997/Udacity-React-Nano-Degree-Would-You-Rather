@@ -2,7 +2,11 @@ import React, {Component} from 'react'
 import logo from '../wouldyourather4.jpg'
 import UserDropBox from './UserDropBox'
 import {authUser} from '../actions/authedUser'
+import {Link} from 'react-router-dom'
+import {handleRecieveQuestions} from '../actions/questions'
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
+import authedUser from '../reducers/authedUser'
 
 class SignIn extends Component {
     state = {
@@ -15,6 +19,7 @@ class SignIn extends Component {
     }
     handleClick = (e) => {
         this.props.dispatch(authUser(this.state.selectedUser))
+        this.props.dispatch(handleRecieveQuestions())
     }
     render() {
         return (
@@ -29,7 +34,10 @@ class SignIn extends Component {
                     className="signin-button" 
                     disabled={this.state.selectedUser?false:true} 
                     onClick={this.handleClick}
-                >Sign in</button>
+                >
+                Sign in
+                </button>
+                {/* <Link onClick={this.handleClick} className='signin-button link' to='/'>Sign in</Link> */}
             </div>
         )
     }
