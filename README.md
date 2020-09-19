@@ -13,10 +13,14 @@ Second Project in Udacity React nano degree this project represents the "Would Y
 ## Insallation and Launching the Project
 
 1- Download NodeJS (https://nodejs.org/en/)
+
 2- Clone the project
+
 3- run
-	npm install
-	npm start
+```bash
+npm install
+npm run
+```
 
 ## Data
 
