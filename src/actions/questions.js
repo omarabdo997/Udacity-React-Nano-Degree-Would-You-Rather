@@ -1,6 +1,3 @@
-import {_saveQuestion, _getQuestions, _saveQuestionAnswer} from '../utils/_DATA'
-
-
 export const ADD_QUESTION = 'ADD_QUESTION'
 export const RECIEVE_QUESTIONS = 'RECIEVE_QUESTIONS'
 export const ANSWER_QUESTION = 'ANSWER_QUESTION'

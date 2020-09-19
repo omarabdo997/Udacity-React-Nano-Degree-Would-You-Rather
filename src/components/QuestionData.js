@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {handleAnswerQuestion} from '../actions'
 import {Redirect} from 'react-router-dom'
 import NotFound from './NotFound'
+import noImage from '../no-image.jpg'
 
 
 class QuestionData extends Component {
@@ -24,7 +25,8 @@ class QuestionData extends Component {
     }
 
     render() {
-        const {question, authedUser} = this.props
+        const {question, authedUser, users} = this.props
+        
         if(!authedUser) {
             return <Redirect to={{
                 pathname: '/signin',
@@ -34,7 +36,7 @@ class QuestionData extends Component {
         if(!question) {
             return <NotFound />
         }
-        console.log('rerender')
+        const author = users[question.author]
         const voted = question.optionOne.votes.includes(authedUser) || 
             question.optionTwo.votes.includes(authedUser)
         let percentageOne, percentageTwo, optionOneVotes, optionTwoVotes
@@ -66,6 +68,7 @@ class QuestionData extends Component {
                                 <p className="number-vote">{optionTwoVotes} votes</p>
                                 <p className="vote-choice">{question.optionTwo.text}</p>
                             </div>
+                            
                         </div> 
                         :<div className='text-areas'> 
                             <div className="red-text-area" onClick={this.handleClickLeft}>
@@ -78,6 +81,11 @@ class QuestionData extends Component {
                             </div>
                         </div> 
                     }
+                <div className='user-data-detail'>
+                    <h3>Author:</h3>
+                    <img src={author.avatarURL?author.avatarURL:noImage} alt="avatar"/>
+                    <p className="name-l">{author.name}</p>
+                </div>    
                     
                 
             </div>
@@ -85,7 +93,7 @@ class QuestionData extends Component {
     }
 }
 
-const stateToProps = ({questions, authedUser}, props) => {
+const stateToProps = ({questions, authedUser, users}, props) => {
     const id = props.match.params.question_id
     const pathname = props.location.pathname
     const allQuestions = {...questions.answeredQuestions, ...questions.unansweredQuestions}
@@ -93,7 +101,8 @@ const stateToProps = ({questions, authedUser}, props) => {
         question: allQuestions[id],
         authedUser,
         allQuestions,
-        pathname
+        pathname,
+        users
     }
 }
 export default connect(stateToProps)(QuestionData);

@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {handleUnauthUser} from '../actions'
 import {Link} from 'react-router-dom'
 import {withRouter} from 'react-router-dom'
+import noImage from '../no-image.jpg'
  
 class Nav extends Component {
 
@@ -26,7 +27,7 @@ class Nav extends Component {
                     {authedUser?
                         <ul className="nav-user">
                             <li>Hello, {user.name.split(" ")[0]}</li>
-                            <li><img src={user.avatarURL} alt=""/></li>
+                            <li><img src={user.avatarURL?user.avatarURL:noImage} alt=""/></li>
                             <li className="button" onClick={this.handleClick}>Sign Out</li>
                             
                         </ul>

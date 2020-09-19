@@ -5,10 +5,10 @@ import SignIn from './SignIn'
 import NewQuestion from './NewQuestion'
 import Home from './Home'
 import LeaderBoard from './LeaderBoard'
+import SignUp from './SignUp'
 import QuestionData from './QuestionData'
 import NotFound from './NotFound'
 import {handleRecieveUsers} from '../actions'
-import {withRouter, Redirect} from 'react-router-dom'
 import Loading from './Loading'
 import {Switch} from 'react-router-dom'
 import {Route} from 'react-router-dom'
@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   render() {
-    const {authedUser, loading} = this.props
+    const {loading} = this.props
     return (
       <Fragment>
         <Nav />
@@ -35,6 +35,9 @@ class App extends Component {
                 </Route>
                 <Route path="/signin" exact>
                   <SignIn />
+                </Route>
+                <Route path="/signup" exact>
+                  <SignUp />
                 </Route>
                 <Route path="/add" exact>
                   <NewQuestion /> 
@@ -54,4 +57,4 @@ class App extends Component {
   } 
 }
 
-export default connect(({authedUser, loading}) => ({authedUser, loading}))(App)
+export default connect(({loading}) => ({loading}))(App)

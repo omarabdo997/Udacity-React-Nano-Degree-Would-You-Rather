@@ -1,6 +1,7 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {Fragment} from 'react'
 import {connect} from 'react-redux'
+import noImage from '../no-image.jpg'
 
 function LeaderBoardItem(props) {
     const {users, id} = props
@@ -9,7 +10,7 @@ function LeaderBoardItem(props) {
         <Fragment>
             <div className="leader-board-item">
                 <div className="user-data">
-                    <img src={user.avatarURL} alt=""/>
+                    <img src={user.avatarURL?user.avatarURL:noImage} alt="avatar"/>
                     <p className="name-l">{user.name.split(" ")[0]}</p>
                 </div>
                 <div className="answered">

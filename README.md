@@ -6,6 +6,18 @@ The `_DATA.js` file represents a fake database and methods that let you access t
 
 Using the provided starter code, you'll build a React/Redux front end for the application. We recommend using the [Create React App](https://github.com/facebook/create-react-app) to bootstrap the project.
 
+## Description
+
+Second Project in Udacity React nano degree this project represents the "Would You Rather" game and is made using React and Redux this project is connected to a fake database and uses Async requests and redux thunk middleware
+
+## Insallation and Launching the Project
+
+1- Download NodeJS (https://nodejs.org/en/)
+2- Clone the project
+3- run
+	npm install
+	npm start
+
 ## Data
 
 There are two types of objects stored in our database:

@@ -21,16 +21,13 @@ const questions = (state={
         case RECIEVE_QUESTIONS:
         {
             const {questions, user} = action
-            const newQuestions = {...questions}
-            let answeredQuestions= {}
-            let unansweredQuestions= {}
-            for (let key in newQuestions) {
+            let answeredQuestions= {...state.answeredQuestions}
+            let unansweredQuestions= {...state.unansweredQuestions}
+            for (let key in questions) {
                 if (key in user.answers) {
-                    answeredQuestions[key]=newQuestions[key]
-                    answeredQuestions[key].test=5;
+                    answeredQuestions[key]={...questions[key]}
                 } else {
-                    unansweredQuestions[key]=newQuestions[key]
-                    unansweredQuestions[key].test=5;
+                    unansweredQuestions[key]={...questions[key]}
                 }
             }
             return {
@@ -48,13 +45,13 @@ const questions = (state={
             let unansweredQuestions = {...state.unansweredQuestions};
             let answeredQuestions = {...state.answeredQuestions};
             let question
-            if (action.qid in unansweredQuestions) {
-                question = unansweredQuestions[action.qid]
-                delete unansweredQuestions[action.qid]
-            } else {
-                question = answeredQuestions[action.qid]
-            }
+            // deep copy from here
+            question = {...unansweredQuestions[action.qid]}
+            delete unansweredQuestions[action.qid]
+            question[action.answer] = {...question[action.answer]}
+            question[action.answer].votes = [...question[action.answer].votes]
             question[action.answer].votes.push(action.user)
+            // till here
             answeredQuestions[action.qid]=question        
             return {
                 unansweredQuestions,

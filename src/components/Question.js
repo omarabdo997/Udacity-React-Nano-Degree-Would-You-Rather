@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
+import noImage from '../no-image.jpg'
+
 
 class Question extends Component {
 
@@ -24,7 +26,7 @@ class Question extends Component {
                 <div className="question" onClick={this.handleClick}>
                     
                     <div className="user-data">
-                    <img src={user.avatarURL} alt=""/>
+                    <img src={user.avatarURL?user.avatarURL:noImage} alt="avatar"/>
                     <p className="name">{user.name.split(' ')[0]}</p>
                     </div>
                     

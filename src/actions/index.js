@@ -1,13 +1,15 @@
 import {setLoading} from './loading'
 import {authUser, unauthUser} from './authedUser'
-import {recieveUsers, addUserQuestion, answerUserQuestion} from './users'
+import {recieveUsers, addUserQuestion, answerUserQuestion, addUser} from './users'
 import {addQuestion} from './questions'
 import {recieveQuestions, removeQuestions, answerQuestion} from './questions'
+import {addMssg} from './messages'
 import {
     _getUsers, 
     _getQuestions, 
     _saveQuestion,
-    _saveQuestionAnswer
+    _saveQuestionAnswer,
+    _addUser
 } from '../utils/_DATA'
 
 
@@ -44,6 +46,20 @@ export const handleRecieveUsers = () => {
     }
 }
 
+export const handleAddUser = (user) => {
+    return (dispatch) => {
+        _addUser(user)
+            .then((user) => {
+                dispatch(addUser(user))
+                dispatch(addMssg({redirect: '/signin'}))
+            })
+            .catch((mssg) => {
+                dispatch(addMssg({error: mssg}))
+            })
+    }
+
+}
+
 export const handleAddQuestion = (question, authedUser) => {
     return (dispatch) => {
         dispatch(setLoading(true))
@@ -58,17 +74,12 @@ export const handleAddQuestion = (question, authedUser) => {
 
 export const handleAnswerQuestion = (qid, authedUser, answer) => {
     return(dispatch) => {
-        
-        dispatch(answerQuestion(qid, authedUser, answer))
-        dispatch(answerUserQuestion(qid, authedUser, answer))
+        dispatch(setLoading(true))
         _saveQuestionAnswer({qid, authedUser, answer})
             .then(() => {
-                console.log('done')
-            })
-            .catch((mssg) => {
-                alert(mssg)
-                // this wont trigger but assum if the api returns a message in case
-                // of failure
+                dispatch(answerQuestion(qid, authedUser, answer))
+                dispatch(answerUserQuestion(qid, authedUser, answer))
+                dispatch(setLoading(false))
             })
     }
 }

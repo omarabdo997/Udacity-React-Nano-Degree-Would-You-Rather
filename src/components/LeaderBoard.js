@@ -1,7 +1,6 @@
 import React from 'react'
 import LeaderBoardItem from './LeaderBoardItem'
 import {connect} from 'react-redux'
-import { authUser } from '../actions/authedUser'
 import { Redirect } from 'react-router-dom'
 
 

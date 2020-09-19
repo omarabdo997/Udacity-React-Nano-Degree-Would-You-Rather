@@ -11,14 +11,14 @@ class UserDropBoxChoice extends Component {
         if(!chosen) {
             return (
                 <div className="user-choice"  onClick={this.handleClick}>
-                    <img src={user.avatarURL}/>
+                    <img src={user.avatarURL?user.avatarURL:noImage} alt="avatar"/>
                     <p>{user.id}</p>
                 </div>
             )
         } else {
             return (
                 <div className="user-selected">
-                    <img src={user?user.avatarURL:noImage}/>
+                    <img src={user?user.avatarURL?user.avatarURL:noImage:noImage} alt="no avatar"/>
                     <p>{user?user.id:"please select a user..."}</p>
                 </div>
             )

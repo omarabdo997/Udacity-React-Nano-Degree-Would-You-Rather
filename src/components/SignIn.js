@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import logo from '../wouldyourather4.jpg'
 import UserDropBox from './UserDropBox'
+import {Link} from 'react-router-dom'
 import {handleAuthUser} from '../actions'
 import {withRouter} from 'react-router-dom'
+import {removeMssg} from '../actions/messages'
 import {connect} from 'react-redux'
 
 
@@ -22,7 +24,11 @@ class SignIn extends Component {
             this.props.location.state.from === '/signin') history.push('/')
         else history.push(this.props.location.state.from)
     }
+    componentDidMount() {
+        this.props.dispatch(removeMssg())
+    }
     render() {
+        
         return (
             <div className="signin-container">
                 <img className="logo" src={logo} alt="logo"/>
@@ -30,7 +36,7 @@ class SignIn extends Component {
                     selectUser={this.selectUser} 
                     selectedUser={this.state.selectedUser}
                 />
-                <a>Don't have an account? Sign Up Now!</a>
+                <Link className='link-sign' to="/signup">Don't have an account? Sign Up Now!</Link>
                 <button 
                     className="signin-button" 
                     disabled={this.state.selectedUser?false:true} 

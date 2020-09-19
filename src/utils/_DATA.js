@@ -125,6 +125,26 @@ export function _getUsers () {
   })
 }
 
+export function _addUser (user) {
+  return new Promise ((res, rej) => {
+    const newUser = {
+      id: user.username,
+      name: user.name,
+      avatarURL: user.url,
+      answers: {},
+      questions: []
+    }
+    setTimeout(()=> {
+      if (user.username in users) rej("A user with this username already exists")
+      else {
+        users[user.username] = newUser
+        res(newUser)
+      }
+    }, 1000)
+    
+  })
+}
+
 export function _getQuestions () {
   return new Promise((res, rej) => {
     setTimeout(() => res({...questions}), 1000)

@@ -27,7 +27,6 @@ class Home extends Component {
     render() {        
         const type = this.state.questions
         const {questions, authedUser} = this.props
-        console.log(authedUser)
         return !authedUser?<Redirect to={{
             pathname:'/signin',
             state: {from:'/'}

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {handleAddQuestion} from '../actions'
 import {withRouter} from 'react-router-dom'
 import {Redirect} from 'react-router-dom'
-import authedUser from '../reducers/authedUser'
+
 
 class NewQuestion extends Component {
     state = {
@@ -35,7 +35,6 @@ class NewQuestion extends Component {
         }
         this.props.dispatch(handleAddQuestion(question, this.props.authedUser))
         this.props.history.push('/')
-        console.log(this.props)
 
 
     }
