@@ -19,7 +19,7 @@ Second Project in Udacity React nano degree this project represents the "Would Y
 3- run
 ```bash
 npm install
-npm run
+npm start
 ```
 
 ## Data
