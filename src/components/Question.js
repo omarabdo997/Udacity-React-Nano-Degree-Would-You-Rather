@@ -4,9 +4,11 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 
 class Question extends Component {
+
     handleClick = () => {
         this.props.history.push('/questions/' + this.props.question.id)
     }
+
     render() {
         const {users, question} = this.props
         const user = users[question.author]
@@ -41,6 +43,7 @@ class Question extends Component {
         )
     }
 }
+
 const stateToProps = ({users, questions}, {id, type}) => {
     return {users,
     question: questions[type][id]}

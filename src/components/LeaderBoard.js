@@ -1,23 +1,28 @@
-import React, {Component} from 'react'
+import React from 'react'
 import LeaderBoardItem from './LeaderBoardItem'
 import {connect} from 'react-redux'
+import { authUser } from '../actions/authedUser'
+import { Redirect } from 'react-router-dom'
 
-class LeaderBoard extends Component {
 
-    render() {
-        const {users} = this.props
-        return (
-            <div className="leader-board-container">
-                {users.map((user) => (
-                    <LeaderBoardItem user={user}/>
-                ))}
-            </div>
-        )
-    }
+function LeaderBoard(props) {
+    const {users, authedUser} = props
+    return !authedUser?<Redirect to={{
+        pathname:'/signin',
+        state: {from:'/leaderboard'}
+    }}/>:
+    <div className="leader-board-container">
+        {users.map((user) => (
+            <LeaderBoardItem user={user} key={user}/>
+        ))}
+    </div>
+    
 }
-const stateToProps = ({users}) => ({
+
+const stateToProps = ({users, authedUser}) => ({
     users: Object.keys(users).sort((a,b) => (
         users[b].score -users[a].score
-    ))
+    )),
+    authedUser
 })
 export default connect (stateToProps)(LeaderBoard)

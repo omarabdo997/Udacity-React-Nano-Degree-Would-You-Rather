@@ -1,30 +1,31 @@
 import React, {Component} from 'react'
 import logo from '../wouldyourather4.jpg'
 import UserDropBox from './UserDropBox'
-import {authUser} from '../actions/authedUser'
-import {Link} from 'react-router-dom'
-import {handleRecieveQuestions} from '../actions/questions'
+import {handleAuthUser} from '../actions'
+import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
-import authedUser from '../reducers/authedUser'
+
 
 class SignIn extends Component {
     state = {
         selectedUser: null
     }
-    selectUser = (user) => {
+    selectUser = (userID) => {
         this.setState((currentState) => ({
-            selectedUser: user
+            selectedUser: userID
         }))
     }
     handleClick = (e) => {
-        this.props.dispatch(authUser(this.state.selectedUser))
-        this.props.dispatch(handleRecieveQuestions())
+        this.props.dispatch(handleAuthUser(this.state.selectedUser))
+        const history = this.props.history
+        if(!this.props.location.state || 
+            this.props.location.state.from === '/signin') history.push('/')
+        else history.push(this.props.location.state.from)
     }
     render() {
         return (
             <div className="signin-container">
-                <img className="logo" src={logo} alt="not found"/>
+                <img className="logo" src={logo} alt="logo"/>
                 <UserDropBox 
                     selectUser={this.selectUser} 
                     selectedUser={this.state.selectedUser}
@@ -37,9 +38,8 @@ class SignIn extends Component {
                 >
                 Sign in
                 </button>
-                {/* <Link onClick={this.handleClick} className='signin-button link' to='/'>Sign in</Link> */}
             </div>
         )
     }
 }
-export default connect ()(SignIn);
+export default withRouter(connect ()(SignIn));

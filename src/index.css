@@ -73,7 +73,8 @@ input {
   outline: none;
 }
 .button:hover,
-.button:active {
+.button:active,
+.button-selected {
   background-color: #e67e22;
 }
 .arrow-button {
@@ -288,6 +289,15 @@ nav {
 }
 .text-areas {
   position: relative;
+  margin-bottom: 50px;
+  
+}
+.darken {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0));
+}
+.text-areas-animate {
+  animation-name: puls;
+  animation-duration: 10s; 
 }
 .text-areas::after {
   content: "?";
@@ -304,6 +314,9 @@ nav {
   position: absolute;
   z-index: 1500;
 }
+.new-question textarea {
+  cursor: text;
+}
 .new-question textarea,
 .text-areas div {
   display: inline-block;
@@ -318,19 +331,16 @@ nav {
   /* position: relative; */
   color: black;
   font-weight: 400;
+  transition: all 2s;
 }
-.text-areas {
-  margin-bottom: 50px;
-  animation-name: puls;
-  animation-duration: 10s; 
-}
+
 .text-areas div {
   /* cursor: pointer; */
-  text-align: center;
+  text-align: center;  
 }
 .new-question textarea:hover,
 .text-areas div:hover {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0));
+  filter: brightness(60%);
 }
 
 
@@ -338,22 +348,20 @@ nav {
   background-color: #e74c3c;
   position: relative;
   cursor: pointer;
-  animation-name: puls;
-  animation-duration: 10s;  
 }
 
 .blue-text-area {
   background-color: #3498db;
   position: relative;
   cursor: pointer;
-  animation-name: puls;
-  animation-duration: 10s; 
 }
-.selected {
+.selected{
   position: relative;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.1),rgba(0, 0, 0, 0));
+  filter: brightness(60%);
   cursor: default;
 }
+
+
 
 
 
@@ -366,6 +374,7 @@ nav {
   background-color: #271504;
   border-radius: 30px;
   animation-name: pulse;
+  min-height: 250px;
   animation-duration: 0.5s;
   
 }
@@ -378,7 +387,9 @@ nav {
   cursor: pointer;
   transition: all 0.3s;
 }
-.questions-category-right:hover {
+
+.questions-category-right:hover,
+.que-cat-right-select {
   background-color: #e67e22;
   border-top-right-radius: 30px;
 }
@@ -390,7 +401,8 @@ nav {
   cursor: pointer;
   transition: all 0.3s;
 }
-.questions-category-left:hover {
+.questions-category-left:hover,
+.que-cat-left-select {
   background-color: #e67e22;
   border-top-left-radius: 30px;
 }
@@ -551,4 +563,18 @@ nav {
   left: 0px;
   font-size: 300%;
   color:#271504;
+}
+
+/* -------- */
+/* Not Found */
+/* ------- */
+.not-found {
+  margin: 80px auto;
+  /* text-align: center; */
+  width: 600px;
+  overflow: hidden;
+}
+.not-found img {
+  width: 600px;
+  transform: scale(1.05);
 }

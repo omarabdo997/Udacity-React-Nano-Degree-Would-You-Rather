@@ -1,70 +1,32 @@
 import {_saveQuestion, _getQuestions, _saveQuestionAnswer} from '../utils/_DATA'
-import {setLoading} from './loading'
+
 
 export const ADD_QUESTION = 'ADD_QUESTION'
 export const RECIEVE_QUESTIONS = 'RECIEVE_QUESTIONS'
 export const ANSWER_QUESTION = 'ANSWER_QUESTION'
+export const REMOVE_QUESTIONS = 'REMOVE_QUESTIONS'
 
-const addQuestion = (question) => ({
+export const addQuestion = (question) => ({
     type: ADD_QUESTION,
     question
 })
-const recieveQuestions = (questions) => ({
+
+export const recieveQuestions = (questions, user) => ({
     type: RECIEVE_QUESTIONS,
-    questions
+    questions,
+    user
 })
-const answerQuestion = (qid, user, answer) => ({
+
+export const removeQuestions = () => ({
+    type: REMOVE_QUESTIONS
+})
+
+export const answerQuestion = (qid, user, answer) => ({
     type: ANSWER_QUESTION,
     qid,
     user,
     answer
 })
 
-export const handleAddQuestion = (question) => {
-    return (dispatch) => {
-        dispatch(setLoading(true))
-        _saveQuestion(question)
-            .then((questionFormated) => {
-                dispatch(addQuestion(questionFormated))
-                dispatch(setLoading(false))
-            })
-    }
-}
-export const handleAnswerQuestion = (qid, user, answer) => {
-    return(dispatch) => {
-        // dispatch(setLoading(true))
-        dispatch(answerQuestion(qid, user, answer))
-        // dispatch(setLoading(false))
-        // const data = {
-        //     authedUser: user,
-        //     qid,
-        //     answer
 
-        // }
-        // _saveQuestionAnswer(data)
-        //     .then(() => {
-        //         console.log('done')
-        //     })
-    }
-}
-export const handleRecieveQuestions = () => {
-    return (dispatch, getState) => {
-        dispatch(setLoading(true))
-        const {authedUser} = getState()
-        _getQuestions()
-            .then((questions) => {
-                let answeredQuestions= {}
-                let unansweredQuestions= {}
-                for (let key in questions) {
-                    if (key in authedUser.answers) {
-                        answeredQuestions[key]=questions[key]
-                    } else {
-                        unansweredQuestions[key]=questions[key]
-                    }
-                }
-                const formatedQuestions = {answeredQuestions, unansweredQuestions}
-                dispatch(recieveQuestions(formatedQuestions)) 
-                dispatch(setLoading(false))
-            })
-    }
-}
+

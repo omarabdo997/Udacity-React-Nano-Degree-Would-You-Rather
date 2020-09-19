@@ -3,7 +3,7 @@ import noImage from '../no-image.jpg'
 
 class UserDropBoxChoice extends Component {
     handleClick = (e) => {
-        this.props.selectUser(this.props.user)
+        this.props.selectUser(this.props.user.id)
         this.props.dropBox()
     }
     render () {

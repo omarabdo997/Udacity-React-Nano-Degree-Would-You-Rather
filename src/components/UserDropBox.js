@@ -29,7 +29,7 @@ class UserDropBox extends Component {
             <div className="user-input">
                 <p>User:</p>
                 <div className="user-drop-area">
-                    <UserDropBoxChoice chosen={true} user={selectedUser}/>
+                    <UserDropBoxChoice chosen={true} user={users[selectedUser]}/>
                     <button className="arrow-button" onClick={this.dropBox}><span className={this.state.revolve}>&#10507;</span></button>
                     <div className={this.state.showHide}>
                         {Object.keys(users).map((key) => {

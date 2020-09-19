@@ -1,27 +1,32 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {unauthUser} from '../actions/authedUser'
+import {handleUnauthUser} from '../actions'
 import {Link} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
  
 class Nav extends Component {
+
     handleClick = () => {
-        this.props.dispatch(unauthUser())
+        this.props.dispatch(handleUnauthUser())
     }
+
     render() {
-        const {authedUser} = this.props
+        const {authedUser, users} = this.props
+        const location = this.props.location.pathname
+        const user = users[authedUser]
         return (
             <nav>
                 <div className="nav-container">
                     <ul className="nav-options">
-                        <Link className='button link' to='/'>Home</Link>
-                        <Link className='button link' to='/add'>New Question</Link>
-                        <Link className='button link' to='/leaderboard'>Leader Board</Link>
+                        <Link className={'button link ' + (location==='/'?'button-selected':'')} to='/'>Home</Link>
+                        <Link className={'button link ' + (location==='/add'?'button-selected':'')} to='/add'>New Question</Link>
+                        <Link className={'button link ' + (location==='/leaderboard'?'button-selected':'')} to='/leaderboard'>Leader Board</Link>
 
                     </ul>
-                    {authedUser.id?
+                    {authedUser?
                         <ul className="nav-user">
-                            <li>Hello, {authedUser.name.split(" ")[0]}</li>
-                            <li><img src={authedUser.avatarURL} alt=""/></li>
+                            <li>Hello, {user.name.split(" ")[0]}</li>
+                            <li><img src={user.avatarURL} alt=""/></li>
                             <li className="button" onClick={this.handleClick}>Sign Out</li>
                             
                         </ul>
@@ -38,7 +43,9 @@ class Nav extends Component {
         )
     }
 }
-const stateToProps = ({authedUser}) => ({
-    authedUser
+
+const stateToProps = ({authedUser, users}) => ({
+    authedUser,
+    users
 })
-export default connect (stateToProps)(Nav)
+export default withRouter(connect (stateToProps)(Nav))
